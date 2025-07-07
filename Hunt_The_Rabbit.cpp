@@ -15,11 +15,11 @@ bool go(int x){
         auto mid = start+dist/2;
         
         if(mid == x) {
-            cout<<mid << endl;
+            cout<< mid << endl;
             return true;
         }
         else if(x<mid) {
-            cout<<mid << " ";
+            cout<< mid << " ";
             end = mid-1;
         }
         else {
