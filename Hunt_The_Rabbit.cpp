@@ -34,7 +34,7 @@ bool go(int x){
 int main(){
     while(true){
         cin>>x;
-        if(x==0) braek;
+        if(x==0) break;
         go(x);
     }
 
