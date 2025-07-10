@@ -5,37 +5,35 @@
 using namespace std;
 
 int N, M;
-int A[100001], B[100001];
+int A[100001];
 
-bool go(int num, int m, int arr[]){
-    int start=0, end=m-1;
-
-    while(start <= end){
-        int dist = end-start;
-        int mid_idx = start+dist/2;
-        int mid = arr[mid_idx];
-
-        if(num == mid) {
-            cout<<"1"<<endl;
-            return true;
-        }
-        else if(num < mid) end = mid_idx-1;
-        else start = mid_idx+1;
-    }
-    cout<<"0"<<endl;
-    return false;
-}
 
 int main(){
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+
     cin>>N;
     for(int i=0; i<N; i++) cin>>A[i];
     sort(A, A+N);   //포인터로 받음
 
     cin>>M;
-    for(int i=0; i<M; i++) cin>>B[i];
+    while(M--){
+        bool found = false;
+        int x;
+        cin>>x;
 
-    for(int i=0; i<M; i++) {
-        go(B[i], M, A);
+        int start=0, end=N-1;
+        int mid_idx;
+        while(start <= end){
+            mid_idx = (start+end)/2;
+
+            if(x == A[mid_idx]) {
+                found = true;
+                break;
+            }
+            else if(x < A[mid_idx]) end = mid_idx-1;
+            else start = mid_idx+1;
+        }
+        cout<<(found ? "1\n" : "0\n");
     }
-
 }
