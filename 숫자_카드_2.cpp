@@ -19,26 +19,20 @@ int main(){
         cin>>x;
 
         int le=0, ri=N, ub=N, lb=0;
-        while( le <= ri ){
+        while( le < ri ){
             int mid = (le+ri)/2;
-            
-            if(x < card[mid]){
-                ri = mid-1;
-                ub = mid;
-            }
-            else le = mid+1;
-        }
+
+            if(card[mid]<=x) le=mid+1;
+            else ri =  mid;
+        } ub=le;
 
         le=0; ri=N;
-        while(le<=ri){
+        while(le<ri){
             int mid = (le+ri)/2;
 
-            if(x <= card[mid]){
-                ri = mid-1;
-                lb = mid;
-            }
-            else le = mid+1;
-        }
+            if(card[mid] < x) le = mid + 1;
+            else ri = mid;
+        } lb=le;
         cout<<ub-lb<<' ';
     }
 }
