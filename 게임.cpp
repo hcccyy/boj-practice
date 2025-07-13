@@ -3,7 +3,7 @@
 #include <vector>
 using namespace std;
 
-int X, Y, Z;
+long long X, Y, Z;
 int ans=0;
 
 int main(){
@@ -11,19 +11,22 @@ int main(){
     cin.tie(NULL); cout.tie(NULL);
 
     cin>>X>>Y;
-    Z=((double)Y/X*100);
+    Z=Y*100/X;
     
-    int le=0, ri=(Y!=0) ? Y: X;
-    while(le<=ri){
-        int mid = (le+ri)/2;
+    if(Z>=99) {
+        cout<<-1;
+        return 0;
+    }
 
-        int aX=X+mid, aY=Y+mid;
-        int win = ((double)aY/aX*100);
+    long long le=1, ri=10e9;
+    while(le<=ri){
+        long long mid = le+(ri-le)/2;
+
+        long long win = (Y+mid)*100/(X+mid);
 
         if(win > Z) ri=mid-1;
         else le=mid+1;
     }ans=le;
     
-    if(le>X) ans=-1; 
     cout<<ans;
 }
