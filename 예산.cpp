@@ -22,7 +22,7 @@ int main(){
         return 0;
     }
 
-    int le=A[0], ri=A[N-1], ans;
+    int le=0, ri=A[N-1], ans;
     while(le<=ri){
         int mid = le+(ri-le)/2;
         
