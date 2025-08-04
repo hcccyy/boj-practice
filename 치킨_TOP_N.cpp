@@ -6,25 +6,28 @@ int N, k;
 int arr[1010101];
 int arr2[1010101];
 
-void mergeSort(){
-    for(int sz=1; sz<N; sz*=2){
-        for(int i=0; i<N; i+=2*sz){
-            int l=i;
-            int m = min(i+sz, N);
-            int r = min(i+2*sz, N);
+void merge(int l, int r){
+    if (r-l > N/k) return;
+    int m = (l+r)/2;
+    int i=l, j=m+1, k=l;
 
-            int p=l, q=m, t=l;
-            while(p<m && q<r){
-                if(arr[p] <= arr[q]) arr2[t++] = arr[p++];
-                else arr2[t++] = arr[q++];
-            }
-            int tmp = p >= m ? q : p;
-            while(t<r) arr2[t++] = arr[tmp++];
-            for(int j=l; j<r; j++) 
-                arr[j] = arr2[j];
-        }
+    while(i<=m && j<=r){
+        if(arr[i] <= arr[j]) arr2[k++] = arr[i++];
+        else arr2[k++] = arr[j++];
+    }
+    int tmp = i > m ? j : i;
+    while(k<=r) arr2[k++] = arr[tmp++];
 
-        if(sz == N/k) break;
+    for(int i=l; i<=r; i++) arr[i] = arr2[i];
+}
+
+void divide(int l, int r){
+    if(l==r) return;
+    if (l<r){
+        int m = (l+r)/2;
+        divide(l, m);
+        divide(m+1, r);
+        merge(l, r);
     }
 }
 
@@ -39,7 +42,7 @@ int main(){
     }
     cin>>k;
 
-    mergeSort();
+    divide(0, N-1);
 
     for(int i=0; i<N; i++) cout<<arr[i]<<' ';
 }

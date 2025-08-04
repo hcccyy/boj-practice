@@ -5,12 +5,14 @@ using namespace std;
 int N;
 int arr[1010][1010];
 int arr2[1010][1010];
+int blue=0, white=0;
 
 void merge(int l, int r){
     int m = (l+r)/2;
 
     int i=l, j=m+1, k=l;
     //
+
     while(i<=m && j<=r){
         if(arr[i][j] == arr[i][j+1]){
             printf("same ");
