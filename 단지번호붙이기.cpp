@@ -5,32 +5,50 @@
 using namespace std;
 
 int N;
-vector<vector<int>> map(N, vector<int>(N, 0));
-vector<vector<bool>> visited(N, vector<bool>(N, false));
-void dfs(int v1, int v2){
+vector<vector<int>> map;
+vector<vector<bool>> visited;
+vector<int> house;
+int cnt=0;
+
+int dfs(int v1, int v2){
     visited[v1][v2] = true;
-    for(int i=0; i<map[v1].size(); i++){
-        if(!visited[v1][i] && map[v1][i]) dfs(v1, i);
-    }
-    for(int j=0; j<map[v1].size(); j++){
-        if(!visited[j][v2] && map[j][v2]) dfs(j, v2);//rothflwy?
-    }
+    if(map[v1][v2]) cnt++;
+    //상 하 좌 우
+    if (v1-1 >= 0 && !visited[v1-1][v2] && map[v1-1][v2]) 
+        dfs(v1-1, v2); 
+    if (v1+1 < N && !visited[v1+1][v2] && map[v1+1][v2]) 
+        dfs(v1+1, v2);
+    if (v2-1 >= 0 && !visited[v1][v2-1] && map[v1][v2-1]) 
+        dfs(v1, v2-1);
+    if (v2+1 < N && !visited[v1][v2+1] && map[v1][v2+1]) 
+        dfs(v1, v2+1);
+
+    return cnt;
 }
 
 
 int main(){
     cin>>N;
+    map.resize(N);
+    visited.resize(N, vector<bool>(N, false));
     
     string line;
     for(int i=0; i<N; i++){
         cin>>line;
-        for(int j=0; j<line.length(); j++) {
-            if(line[j]=='1') map[i].push_back(j);
+        for(int j=0; j<line.length(); j++){
+            map[i].push_back(line[j]-'0');
         }
     }
-    
-    vector<int> house;
 
+    for(int i=0; i<map.size(); i++){
+        for(int j=0; j<map[i].size(); j++){
+            if(map[i][j] && !visited[i][j]) {
+                int ans = dfs(i, j);
+                house.push_back(ans);
+                cnt=0;
+            }
+        }
+    }
     cout<<house.size()<<'\n';
-    for(int i=0; i<house.size(); i++) cout<<house[i]<<'\n';
+    for(int x: house) cout<<x<<'\n';
 }
