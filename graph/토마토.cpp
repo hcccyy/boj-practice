@@ -7,7 +7,6 @@ using namespace std;
 int M, N;
 vector<vector<int>> box;
 
-//visited를 안쓴다고? 이런 시발
 int bfs(){
     queue<pair<int, int>> q;
     for(int i=0; i<N; i++){
